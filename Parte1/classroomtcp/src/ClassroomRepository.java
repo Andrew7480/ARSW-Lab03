@@ -15,4 +15,26 @@ public class ClassroomRepository {
     public Classroom findById(String code) {
         return classrooms.get(code);
     }
+
+    public void reserveClassroom(String code) {
+        Classroom classroom = findById(code);
+        if (classroom != null) {
+            classroom.reservar();
+        }
+    }
+
+    public void releaseClassroom(String code) {
+        Classroom classroom = findById(code);
+        if (classroom != null) {
+            classroom.liberar();
+        }
+    }
+
+    public String listClassrooms() {
+        StringBuilder sb = new StringBuilder();
+        for (Classroom classroom : classrooms.values()) {
+            sb.append(classroom.toText()).append(", ");
+        }
+        return sb.toString();
+    }
 }
