@@ -53,3 +53,13 @@ El servidor es **monohilo**: atiende un cliente a la vez con un bucle `while(tru
 ### ¿Dónde está definido realmente el contrato de comunicación?
 
 En **convenciones de texto implícitas**. No existe un archivo formal de especificación del protocolo; el contrato vive en el código del cliente (cómo construye el mensaje) y en el `processRequest` del servidor (cómo lo parsea). Esto es frágil: si alguien cambia el separador de `:` a `,`, o agrega un espacio extra, la comunicación falla silenciosamente. Un diseño más robusto definiría el protocolo en un archivo separado o usaría un formato estructurado (JSON, Protobuf) que haga el contrato explícito y verificable.
+
+---
+
+## Conclusiones
+
+Implementar un servidor TCP desde cero expone la capa más baja de la comunicación en red: todo — el formato del mensaje, el separador, los comandos válidos y las respuestas — debe diseñarse e interpretarse manualmente. Esto enseña que los protocolos de alto nivel como HTTP o gRPC no son magia, sino soluciones a los mismos problemas que aparecen aquí: ¿cómo identificar la operación? ¿cómo indicar un error? ¿cómo separar campos?
+
+La principal limitación visible en esta parte es la fragilidad del contrato: un cambio de coma a dos puntos rompe la comunicación sin ningún aviso. Esto motiva directamente el uso de formatos estructurados o archivos de especificación formales en sistemas reales.
+
+El modelo monohilo también revela que la concurrencia no es gratis: atender varios clientes simultáneamente requiere diseño explícito (hilos, sincronización), y ignorarlo produce un servidor que bloquea a todos los clientes mientras atiende a uno. Este problema reaparece en cada estilo arquitectónico posterior con distintas soluciones.

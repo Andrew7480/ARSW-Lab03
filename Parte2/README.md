@@ -75,3 +75,13 @@ La clase `com.sun.net.httpserver` es suficiente para prototipos, pero expone las
 ### ¿Cómo cambiaría esta solución si se usara JSON en lugar de HTML?
 
 Los handlers cambiarían el cuerpo de la respuesta de HTML a un objeto JSON (por ejemplo `{"id":"E303","estado":"SALON_RESERVADO"}`), y se agregaría el encabezado `Content-Type: application/json`. La ventaja es que la respuesta sería consumible directamente por cualquier cliente JavaScript, móvil o servicio externo sin necesidad de parsear HTML. Además, los errores podrían comunicarse con una estructura uniforme como `{"error":"ERROR_SALON_NO_EXISTE"}` en lugar de texto libre, lo que hace el contrato más predecible y fácil de integrar.
+
+---
+
+## Conclusiones
+
+Transformar el servidor TCP a HTTP deja en evidencia cuánto trabajo hace implícitamente el protocolo: el método HTTP (`GET` / `POST`) ya comunica la intención de la operación, la ruta identifica el recurso, y cualquier herramienta estándar (navegador, curl, Postman) puede interactuar con el servicio sin conocer un protocolo propio.
+
+Al mismo tiempo, construir el servidor sin framework muestra exactamente qué resuelven los frameworks: el parseo de rutas, la extracción de parámetros, la gestión de errores y los encabezados de respuesta son responsabilidad del desarrollador. Con cuatro rutas esto es manejable; con veinte se vuelve insostenible.
+
+La comparación con la Parte 1 también revela un salto en interoperabilidad: el servidor TCP necesitaba un cliente Java específico, mientras que el servidor HTTP puede ser consumido desde cualquier lenguaje o herramienta que entienda HTTP, que hoy es prácticamente todo.

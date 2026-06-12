@@ -74,3 +74,13 @@ En la interfaz `LabInventoryService`. A diferencia del protocolo TCP (convenció
 ### ¿Qué problemas tendría este sistema si un cliente no está escrito en Java?
 
 RMI es exclusivo del ecosistema JVM: usa serialización binaria de Java y el protocolo JRMP, que no tienen implementaciones estándar en otros lenguajes. Un cliente Python, JavaScript o Go no puede conectarse directamente al registro RMI ni invocar los métodos. Para interoperabilidad multi-lenguaje se necesitaría reemplazar RMI por una solución agnóstica al lenguaje como REST/HTTP, gRPC (con Protobuf) o un broker de mensajes, que son las alternativas modernas al modelo RPC.
+
+---
+
+## Conclusiones
+
+RMI representa un salto conceptual respecto a TCP y HTTP: el desarrollador deja de pensar en mensajes y empieza a pensar en métodos. La interfaz `LabInventoryService` describe lo que el sistema puede hacer en términos de Java puro, y el mecanismo de transporte (sockets, serialización, registro) queda completamente oculto. Esto hace el código del cliente más expresivo y más cercano a la lógica del negocio.
+
+El contrato tipado en código Java es una mejora real sobre las convenciones de texto de las partes anteriores: si un método cambia de firma, el cliente no compila. Sin embargo, esa ventaja viene atada a Java, lo que es una limitación importante en sistemas modernos donde diferentes servicios pueden estar escritos en distintos lenguajes.
+
+Esta parte también introduce la noción de registro de servicios (RMI Registry), un precursor directo de los sistemas de descubrimiento de servicios modernos como Consul o Eureka en arquitecturas de microservicios.
