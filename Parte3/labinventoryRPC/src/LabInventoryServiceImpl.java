@@ -1,6 +1,8 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LabInventoryServiceImpl extends UnicastRemoteObject implements LabInventoryService {
@@ -10,6 +12,15 @@ public class LabInventoryServiceImpl extends UnicastRemoteObject implements LabI
         inventory.put("EQ001", new LabEquipment("EQ001", "Microscope", LabEquipment.Lab.LAB1));
         inventory.put("EQ002", new LabEquipment("EQ002", "Centrifuge", LabEquipment.Lab.LAB2));
         inventory.put("EQ003", new LabEquipment("EQ003", "Spectrophotometer", LabEquipment.Lab.LAB3));
+    }
+
+    @Override
+    public List<String> consultarEquipos() throws RemoteException {
+        List<String> result = new ArrayList<>();
+        for (LabEquipment equipment : inventory.values()) {
+            result.add(equipment.toString());
+        }
+        return result;
     }
 
     @Override
