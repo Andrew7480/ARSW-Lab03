@@ -37,15 +37,20 @@ Las clases Java bajo `target/generated-sources/` son generadas automáticamente 
 
 ### Cómo ejecutar
 
-```bash
-# Compilar y generar fuentes proto
+Desde `Parte4/appointment-grpc/`:
+
+```powershell
 mvn compile
+```
 
-# Terminal 1 — servidor
-mvn exec:java -Dexec.mainClass="edu.eci.arsw.welfare.AppointmentGrpcServer"
+```powershell
+# Terminal 1 — servidor gRPC (puerto 50051)
+mvn exec:java '-Dexec.mainClass=edu.eci.arsw.welfare.AppointmentGrpcServer'
+```
 
+```powershell
 # Terminal 2 — cliente
-mvn exec:java -Dexec.mainClass="edu.eci.arsw.welfare.AppointmentGrpcClient"
+mvn exec:java '-Dexec.mainClass=edu.eci.arsw.welfare.AppointmentGrpcClient'
 ```
 
 ### Cumplimiento de requisitos

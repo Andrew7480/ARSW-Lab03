@@ -19,3 +19,35 @@ Exponer la funcionalidad mediante HTTP permite que cualquier navegador o herrami
 Esta solución introduce conceptos clave del protocolo HTTP: método, ruta, parámetros de consulta y respuesta. Sin embargo, la API devuelve HTML directamente, lo que mezcla datos y presentación y dificulta el consumo desde otros sistemas.
 
 ---
+
+## Ejecución
+
+### Parte I - TCP
+
+Compilar desde `movieExample1/`:
+
+```bash
+javac -d out src/*.java
+```
+
+Abrir dos terminales:
+
+```bash
+# Terminal 1 - servidor
+java -cp out MovieServer
+```
+
+```bash
+# Terminal 2 - cliente
+java -cp out MovieClient
+```
+
+### Parte II - HTTP
+
+Usar la misma compilación anterior y ejecutar:
+
+```bash
+java -cp out MovieHttpServer
+```
+
+Luego abrir en el navegador: `http://localhost:8080/movie?id=1`

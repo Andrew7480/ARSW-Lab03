@@ -18,3 +18,33 @@ MovieClient
  |---- localhost:50053 -> RecommendationService
 
 ---
+
+## Ejecución
+
+Desde `movieExample4/movie-grpc/`:
+
+```powershell
+mvn compile
+```
+
+Abrir cuatro terminales, una por servicio:
+
+```powershell
+# Terminal 1 - MovieService (puerto 50051)
+mvn exec:java '-Dexec.mainClass=edu.eci.arsw.movie.MovieGrpcServer1'
+```
+
+```powershell
+# Terminal 2 - ReviewService (puerto 50052)
+mvn exec:java '-Dexec.mainClass=edu.eci.arsw.review.ReviewGrpcServer'
+```
+
+```powershell
+# Terminal 3 - RecommendationService (puerto 50053)
+mvn exec:java '-Dexec.mainClass=edu.eci.arsw.recommendation.RecommendationGrpcServer'
+```
+
+```powershell
+# Terminal 4 - cliente (consulta los tres servicios directamente)
+mvn exec:java '-Dexec.mainClass=edu.eci.arsw.client.MovieGrpcClient'
+```

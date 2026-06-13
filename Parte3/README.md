@@ -37,15 +37,21 @@ El servidor publica el servicio en el puerto 23000 a través del RMI Registry. E
 
 ### Cómo ejecutar
 
-```bash
+Desde `Parte3/labinventoryRPC/`:
+
+```powershell
 # Compilar
-javac *.java
+javac -d out src/*.java
+```
 
-# Terminal 1 — levantar el servidor
-java LabRmiServer
+```powershell
+# Terminal 1 — servidor RMI (puerto 23000)
+java -cp out LabRmiServer
+```
 
-# Terminal 2 — ejecutar el cliente
-java LabRmiClient
+```powershell
+# Terminal 2 — cliente RMI
+java -cp out LabRmiClient
 ```
 
 ### Cumplimiento de requisitos

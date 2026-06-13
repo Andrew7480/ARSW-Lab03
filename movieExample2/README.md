@@ -12,3 +12,23 @@ RMI es importante como tecnología histórica y conceptual, porque permite enten
 embargo, está fuertemente asociado al ecosistema Java.
 
 ---
+
+## Ejecución
+
+Compilar desde `movieExample2/`:
+
+```bash
+javac -d out src/*.java
+```
+
+Abrir dos terminales:
+
+```bash
+# Terminal 1 - servidor RMI (publica el servicio en el puerto 23000)
+java -cp out MovieRmiServer
+```
+
+```bash
+# Terminal 2 - cliente RMI
+java -cp out MovieRmiClient
+```

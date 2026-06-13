@@ -49,28 +49,37 @@ Cada servicio es autónomo: tiene su propio proceso, su propio proto y su propio
 
 ## Cómo ejecutar
 
-```bash
-# Compilar todo
+Desde `Parte5/appointment-grpc/`:
+
+```powershell
 mvn compile
 ```
 
 Abrir una terminal por servicio y una adicional para el cliente:
 
-```bash
+```powershell
 # Terminal 1 — AppointmentService (puerto 50051)
-mvn exec:java -Dexec.mainClass="edu.eci.arsw.welfare.appointment.AppointmentGrpcServer1"
+mvn exec:java '-Dexec.mainClass=edu.eci.arsw.welfare.appointment.AppointmentGrpcServer1'
+```
 
+```powershell
 # Terminal 2 — MedicalService (puerto 50052)
-mvn exec:java -Dexec.mainClass="edu.eci.arsw.welfare.medical.MedicalGrpcServer"
+mvn exec:java '-Dexec.mainClass=edu.eci.arsw.welfare.medical.MedicalGrpcServer'
+```
 
+```powershell
 # Terminal 3 — GymService (puerto 50053)
-mvn exec:java -Dexec.mainClass="edu.eci.arsw.welfare.gym.GymGrpcServer"
+mvn exec:java '-Dexec.mainClass=edu.eci.arsw.welfare.gym.GymGrpcServer'
+```
 
+```powershell
 # Terminal 4 — RecreationService (puerto 50054)
-mvn exec:java -Dexec.mainClass="edu.eci.arsw.welfare.recreation.RecreationGrpcServer"
+mvn exec:java '-Dexec.mainClass=edu.eci.arsw.welfare.recreation.RecreationGrpcServer'
+```
 
+```powershell
 # Terminal 5 — Cliente (requiere los 4 servicios activos)
-mvn exec:java -Dexec.mainClass="edu.eci.arsw.welfare.WelfareClient"
+mvn exec:java '-Dexec.mainClass=edu.eci.arsw.welfare.WelfareClient'
 ```
 
 ---

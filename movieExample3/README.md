@@ -10,10 +10,26 @@ gRPC permite implementar comunicación RPC moderna usando contratos definidos en
 
 ---
 
+## Ejecución
+
+Desde `movieExample3/movie-grpc/`:
+
+```powershell
+mvn compile
+```
+
+Abrir dos terminales:
+
+```powershell
+# Terminal 1 - servidor gRPC
 mvn exec:java '-Dexec.mainClass=edu.eci.arsw.movie.MovieGrpcServer'
+```
 
 ![alt text](image.png)
 
+```powershell
+# Terminal 2 - cliente gRPC
 mvn exec:java '-Dexec.mainClass=edu.eci.arsw.movie.MovieGrpcClient'
+```
 
 ![alt text](image-1.png)
