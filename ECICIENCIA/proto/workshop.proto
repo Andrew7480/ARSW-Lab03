@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "edu.eci.arsw.eciciencia.workshop";
+option java_outer_classname = "WorkshopProto";
+
+service WorkshopService {
+  rpc GetWorkshops    (WorkshopListRequest)  returns (WorkshopList);
+  rpc GetCapacity     (WorkshopIdRequest)    returns (CapacityResponse);
+  rpc ReserveSpot     (ReservationRequest)   returns (ReservationResponse);
+  rpc CancelReservation (CancelRequest)      returns (CancelResponse);
+  rpc GetReservations (AttendeeIdRequest)    returns (ReservationList);
+}
+
+// ── Mensajes de consulta ─────────────────────────────────────────────────────
+
+message WorkshopListRequest {}
+
+message WorkshopIdRequest {
+  string workshopId = 1;
+}
+
+message AttendeeIdRequest {
+  string attendeeId = 1;
+}
+
+// ── Entidades ────────────────────────────────────────────────────────────────
+
+enum WorkshopType {
+  TALK      = 0;
+  WORKSHOP  = 1;
+  DEMO      = 2;
+}
+
+message Workshop {
+  string workshopId  = 1;
+  string title       = 2;
+  string speaker     = 3;
+  string timeSlot    = 4;
+  string location    = 5;
+  WorkshopType type  = 6;
+  int32 totalSpots   = 7;
+  int32 takenSpots   = 8;
+}
+
+message WorkshopList {
+  repeated Workshop workshops = 1;
+}
+
+// ── Aforo ────────────────────────────────────────────────────────────────────
+
+message CapacityResponse {
+  string workshopId    = 1;
+  int32  totalSpots    = 2;
+  int32  takenSpots    = 3;
+  int32  availableSpots = 4;
+  bool   isFull        = 5;
+}
+
+// ── Reservas ─────────────────────────────────────────────────────────────────
+
+message ReservationRequest {
+  string attendeeId  = 1;
+  string workshopId  = 2;
+}
+
+message ReservationResponse {
+  bool   success       = 1;
+  string reservationId = 2;
+  string message       = 3;
+}
+
+message CancelRequest {
+  string reservationId = 1;
+}
+
+message CancelResponse {
+  bool   success = 1;
+  string message = 2;
+}
+
+message Reservation {
+  string reservationId = 1;
+  string attendeeId    = 2;
+  string workshopId    = 3;
+  string workshopTitle = 4;
+  string timeSlot      = 5;
+}
+
+message ReservationList {
+  repeated Reservation reservations = 1;
+}
